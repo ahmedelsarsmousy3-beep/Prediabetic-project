@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHCC - Pre-Diabetes Awareness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 40px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0 25px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            max-width: 350px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.02);
+        }
+        
+        .organization-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a5276;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        .organization-subtitle {
+            font-size: 1.2rem;
+            color: #3498db;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        
+        .topic-title {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-top: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .barcode-notification {
+            background: #e8f4fc;
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .divider {
+            height: 2px;
+            background-color: #333;
+            margin: 50px auto;
+            width: 90%;
+            max-width: 1000px;
+            opacity: 0.9;
+        }
+        
+        .thin-divider {
+            height: 1px;
+            background-color: #ddd;
+            margin: 30px auto;
+            width: 80%;
+            max-width: 900px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #1a5276;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .section-title i {
+            color: #e74c3c;
+        }
+        
+        .section-description {
+            color: #5d6d7e;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .image-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 550px;
+            border: 1px solid #eaeaea;
+        }
+        
+        .image-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .image-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .image-label {
+            padding: 20px 25px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            background-color: #f9f9f9;
+        }
+        
+        .image-label.en {
+            border-right: 5px solid #3498db;
+        }
+        
+        .image-label.ar {
+            border-right: 5px solid #e74c3c;
+            direction: rtl;
+            font-size: 1.3rem;
+        }
+        
+        .language-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .english-tag {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .arabic-tag {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a5276;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .organization-name {
+                font-size: 1.8rem;
+            }
+            
+            .topic-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .gallery {
+                gap: 30px;
+            }
+            
+            .image-card img {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .organization-name {
+                font-size: 1.5rem;
+            }
+            
+            .topic-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .image-card img {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="IMG-20260131-WA0019.jpg" alt="Primary Health Care Corporation Logo" class="logo">
+            </div>
+            <h1 class="organization-name">مؤسسة الرعاية الصحية الأولية</h1>
+            <p class="organization-subtitle">PRIMARY HEALTH CARE CORPORATION</p>
+            <div class="thin-divider"></div>
+            <h2 class="topic-title">Pre-Diabetes Awareness</h2>
+            
+            <div class="barcode-notification" id="barcodeInfo">
+                <i class="fas fa-barcode" style="color: #3498db; margin-right: 10px;"></i>
+                <span id="barcodeText">Barcode scanned: <strong id="barcodeValue">[code]</strong></span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="divider"></div>
+        
+        <section class="english-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-globe-americas"></i> Information in English</h2>
+                <p class="section-description">Educational materials about pre-diabetes prevention, diagnosis, and management.</p>
+            </div>
+            
+            <div class="gallery">
+                <div class="image-card">
+                    <img src="Screenshot (11).png" alt="Pre-Diabetes Prevention Guidelines in English">
+                    <div class="image-label en">
+                        <span class="language-tag english-tag">English</span><br>
+                        How to Prevent Progression to Diabetes
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <img src="Screenshot (12).png" alt="What is Pre-Diabetes in English">
+                    <div class="image-label en">
+                        <span class="language-tag english-tag">English</span><br>
+                        Understanding Pre-Diabetes: Diagnosis & Risks
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <section class="arabic-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-globe-asia"></i> المعلومات باللغة العربية</h2>
+                <p class="section-description">.مواد توعوية عن مرحلة ما قبل السكري: التشخيص، الوقاية، والمخاطر</p>
+            </div>
+            
+            <div class="gallery">
+                <div class="image-card">
+                    <img src="Screenshot (9).png" alt="Pre-Diabetes Prevention Guidelines in Arabic">
+                    <div class="image-label ar">
+                        <span class="language-tag arabic-tag">العربية</span><br>
+                        كيف نمنع تطور ما قبل السكري إلى مرض السكري
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <img src="Screenshot (10).png" alt="What is Pre-Diabetes in Arabic">
+                    <div class="image-label ar">
+                        <span class="language-tag arabic-tag">العربية</span><br>
+                        ما هو ما قبل السكري: طرق التشخيص وعوامل الخطر
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="footer-logo">مؤسسة الرعاية الصحية الأولية | PRIMARY HEALTH CARE CORPORATION</div>
+            <p>Pre-Diabetes Awareness Campaign | حملة التوعية بمرحلة ما قبل السكري</p>
+            <p>Barcode System Active | نظام الباركود نشط © 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const barcodeId = urlParams.get('id');
+            
+            if (barcodeId) {
+                document.getElementById('barcodeValue').textContent = barcodeId;
+                document.getElementById('barcodeInfo').style.display = 'block';
+                document.title = `PHCC - ${barcodeId} - Pre-Diabetes Awareness`;
+                console.log(`Barcode ${barcodeId} scanned - Website opened successfully`);
+            }
+        });
+        
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.border = '2px dashed #ccc';
+                this.style.padding = '20px';
+                this.alt = 'Image not found.';
+                
+                const parent = this.parentElement;
+                const errorMsg = document.createElement('div');
+                errorMsg.style.padding = '10px';
+                errorMsg.style.color = '#e74c3c';
+                errorMsg.style.textAlign = 'center';
+                errorMsg.textContent = `Image: ${this.src.split('/').pop()} not found`;
+                parent.appendChild(errorMsg);
+            });
+        });
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.image-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
